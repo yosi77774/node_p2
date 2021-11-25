@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <h1>Add User Page</h1>
+
+      <script>
+          function check() {
+            
+            var x = document.querySelectorAll("input[type = 'checkbox']")
+
+              if(x[1].checked === true|| x[2].checked === true || x[3].checked === true){
+                 x[0].checked = true;
+                }
+                else{
+                    x[0].checked = false;
+                }
+              if(x[5].checked === true || x[6].checked === true || x[7].checked === true){
+                 x[4].checked = true;
+              }
+              else{
+                x[4].checked = false;
+              }
+            
+        }
+      </script>
+  </head>
+  <body>
+   
+    <form action="/AddUser/add" method="POST">
+     
+        First Name: <input type="text" name="First_Name"><br>
+        
+        Last Name: <input type="text" name="Last_Name"><br>
+   
+        User Name: <input type="text" name="UserName"><br>
+        
+        Session time out (Minutes): <input type="number" name="SessionTimeOut" min="0" max="1000" step="1"><br><br>
+        Permissions: <br>
+        <input type="checkbox" name="Permissions" value="View Subscriptions" > View Subscriptions<br>
+        <input type="checkbox" name="Permissions" value="Create Subscriptions" onchange="check()"> Create Subscriptions<br>
+        <input type="checkbox" name="Permissions" value="Delete Subscriptions" onchange="check()"> Delete Subscriptions<br>
+        <input type="checkbox" name="Permissions" value="Update Subscriptions" onchange="check()"> Update Subscriptions<br>
+        <input type="checkbox" name="Permissions" value="View Movies" > View Movies<br>
+        <input type="checkbox" name="Permissions" value="Create Movies" onchange="check()"> Create Movies<br>
+        <input type="checkbox" name="Permissions" value="Delete Movies" onchange="check()"> Delete Movies<br>
+        <input type="checkbox" name="Permissions" value="Update Movies" onchange="check()"> Update Movies<br><br>
+
+         <input type="submit" value="Save">
+         <input type="submit" formaction="/UsersManagement" formmethod="get" value="Cancel">
+
+       </form> 
+   </body>
+</html>

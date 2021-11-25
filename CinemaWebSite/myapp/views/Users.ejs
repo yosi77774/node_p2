@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+        footer {
+            width: 320px;
+            padding: 10px;
+            border: 5px solid rgb(0, 0, 0);
+            margin: 0;
+        }
+        </style>
+
+      <h1>Users Page</h1>
+  </head>
+  <body>
+
+    <% users.forEach(function(obj) { %>
+
+            <footer>
+            <form action="/Users/Edit" method="POST">
+
+            Name: <%= obj.First_Name %> <%= obj.Last_Name %><br/>
+            UserName: <%= obj.UserName %><br/>
+            SessionTimeOut: <%= obj.SessionTimeOut %><br/>
+            Created_date: <%= obj.Created_date %><br/>
+            Permissions: <%= obj.Permissions %><br/>
+                
+            <input type="hidden" id="custId" name="Data" value='{"First_Name":"<%=obj.First_Name%>","Last_Name":"<%=obj.Last_Name%>","id":"<%=obj.id%>","UserName":"<%=obj.UserName%>","SessionTimeOut":"<%=obj.SessionTimeOut%>","Created_date":"<%=obj.Created_date%>","Permissions":"<%=obj.Permissions%>"}'>
+
+            <input type="submit" value="Edit">
+            <input type="submit" formaction="/Users/Delete" formmethod="POST"  value="Delete">
+            
+            </form>
+        </footer>
+        <br/><br/>
+    <% }) %>
+   
+   </body>
+</html>

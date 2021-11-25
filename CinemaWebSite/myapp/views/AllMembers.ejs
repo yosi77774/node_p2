@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+    .damo1 {
+      width: 420px;
+      padding: 10px;
+      border: 5px solid rgb(0, 0, 0);
+      margin: 0;
+    }
+
+    .B{
+      width: 280px;
+      padding: 10px;
+      border: 5px solid rgb(0, 0, 0);
+      margin: 0;
+          }
+
+    .damo2{
+              display:none;
+              width: 250px;
+              padding: 10px;
+              
+              margin: 0;
+          }
+     .d{
+      display:none;
+     }     
+
+
+
+</style>
+
+<script>
+   displayDate = (obj) =>
+   {
+   
+    document.getElementById(obj).style.display = "inline";
+   
+  }
+
+
+  </script>
+
+      <h1>All Members Page</h1>
+
+     
+  </head>
+  <body>
+
+
+    
+    <% data.Members.forEach(function(obj) { %>
+
+      <footer class="damo1">
+ 
+        <h1> <%= obj.name %></h1>
+
+        Email:  <%= obj.Email %> <br/>
+        City: <%= obj.City%><br/><br/>
+
+        <form action="/AllMembers/Edit" method="POST">
+
+          <input type="hidden" id="custId" name="Data" value='{"id":"<%=obj._id%>","name":"<%= obj.name %>","Email":"<%= obj.Email %>","City":"<%= obj.City %>"}'>
+
+          <input type="submit" value="Edit">
+          <input type="submit" formaction="/AllMembers/Delete" formmethod="POST"  value="Delete">
+          
+          <footer class="B"> Movies Watced: <br>
+
+          <button type="button" id="x" value="<%= obj.City %>" onclick="displayDate('<%= obj.City %>')" >Subscriptions to new movie</button>
+
+
+            <footer  id="<%= obj.City %>" class="damo2">
+
+            <form action=""><br>
+             Add a new movie<br>
+             <select  name="movie">
+
+              <% data.Movies.forEach(function(objMovie) { %>
+               
+                      <option value="<%= objMovie._id %>"><%= objMovie.name %></option>
+                     
+
+               <% }) %>
+  
+            </select>
+
+            <input type="date" name="date"><br><br>
+              <input type="submit"  formaction="/AllMembers/Add" formmethod="POST"  value="Add">
+
+            </form>
+           </footer>
+
+          </footer>
+
+            </form>
+            <ul>
+            
+
+              <% data.Subscriptions.forEach(function(obj2) { %>
+
+
+                <% if(obj2.MemberId == obj._id) { %>
+                  <% obj2.Movies.forEach(function(obj3) { %>
+                    <% data.Movies.forEach(function(objMovie) { %>
+                      <% if(obj3.movieId == objMovie._id) { %>
+                    <li><a  href="/AllMembers/<%= objMovie.name%>"><%= objMovie.name%></a> , <%= obj3.date %></li>
+                    <% } %>
+                    <% }) %>
+                    <% }) %>
+                 
+              <% } %>
+                
+                
+              
+              <% }) %>
+            </ul>
+  </footer>
+  <br/><br/>
+<% }) %>
+   </body>
+</html>

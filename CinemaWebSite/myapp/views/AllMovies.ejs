@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      footer {
+        position: relative;
+          width: 540px;
+          padding: 10px;
+          border: 5px solid rgb(0, 0, 0);
+          margin: 0;
+      }
+
+      img {
+          position: relative;
+          width: 100px;
+        }
+
+.B{
+          position: absolute;
+          width: 390px;
+          padding: 2px;
+          padding-top: 0;
+          border: 5px solid rgb(0, 0, 0);
+          margin: 0;
+          right: 0;
+          top: 60px;
+         
+         
+        }
+
+      </style>
+    <h1>All Movies page</h1>
+   
+  </head>
+  <body>
+    <br>  <br>
+    <form action="/AllMovies/Search" method="POST">
+
+      Find Movie: 
+      <input type="text" id="Name" name="Name">
+      <input type="submit" value="Find">
+
+    </form> <br><br>
+    <% data.Movies.forEach(function(obj) { %>
+
+      <footer>
+ 
+
+       <b> <%= obj.name %>, <%= obj.Premiered %></b> <br/>
+      <%= obj.Genres%><br/><br/>
+      <img src=  <%= obj.Image%> alt="image"><br>
+          <footer class="B"> <b>Subscriptions watced </b>
+            <ul>
+            <% data.Subscriptions.forEach(function(obj1) { %>
+              <% data.Members.forEach(function(obj2) { %>
+                <% if(obj1.MemberId == obj2._id) { %>
+
+                  <% obj1.Movies.forEach(function(obj3) { %>
+                    <% if(obj3.movieId == obj._id) { %>
+                      <li><a  href="/AllMembers"><%= obj2.name%></a> , <%= obj3.date%>  </li>
+                      <% } %>
+                    <% }) %>
+                  
+                  <% } %>
+              
+                <% }) %>
+
+              <% }) %>
+            </ul>
+           </footer>
+
+          <form action="/AllMovies/Edit" method="POST">
+
+            <input type="hidden" id="custId" name="Data" value='{"id":"<%=obj._id%>","name":"<%= obj.name %>","Genres":"<%= obj.Genres %>","Image":"<%= obj.Image %>","Premiered":"<%= obj.Premiered%>"}'>
+
+            <input type="submit" value="Edit">
+            <input type="submit" formaction="/AllMovies/Delete" formmethod="POST"  value="Delete">
+            
+            </form>
+  </footer>
+  <br/><br/>
+<% }) %>
+  </body>
+</html>

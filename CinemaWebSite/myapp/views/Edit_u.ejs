@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html >
+  <head>
+      <h1>Add User Page</h1>
+
+
+      <style>
+
+            .d{
+               display: none;
+            }
+      </style>
+      <script>
+  
+           
+          function check() {
+            const x = document.getElementsByName("Permissions")
+
+              if(x[1].checked === true|| x[2].checked === true || x[3].checked === true){
+                 x[0].checked = true;
+                }
+                else{
+                    x[0].checked = false;
+                }
+              if(x[5].checked === true || x[6].checked === true || x[7].checked === true){
+                 x[4].checked = true;
+              }
+              else{
+                x[4].checked = false;
+              }
+            
+        }
+
+
+    function Update() {
+
+         const obj = document.getElementById("Dat").innerText  
+         console.log("---"+ obj);
+
+         const arrp = obj.split(",")
+         console.log(arrp[1]);
+
+            const x = document.getElementsByName("Permissions")
+            console.log(x[0].value);
+
+            arrp.forEach(element => {
+               if(x[0].value==element){
+                  x[0].checked = true;
+               }
+               if(x[1].value==element){
+                  x[1].checked = true;
+               }
+               if(x[2].value==element){
+                  x[2].checked = true;
+               }
+               if(x[3].value==element){
+                  x[3].checked = true;
+               }
+               if(x[4].value==element){
+                  x[4].checked = true;
+               }
+               if(x[5].value==element){
+                  x[5].checked = true;
+               }
+               if(x[6].value==element){
+                  x[6].checked = true;
+               }
+               if(x[7].value==element){
+                  x[7].checked = true;
+               }
+            });     
+         }
+      
+      </script>
+  </head>
+  <body  onload="Update()">
+    
+   
+    <div class="d" id="Dat"><%= obj.Permissions %></div>
+
+    <form action="/Edit_u/Update" method="POST">
+     
+        First Name: <input type="text" name="First_Name" value=<%= obj.First_Name %> ><br>
+        
+        Last Name: <input type="text" name="Last_Name" value=<%= obj.Last_Name %> ><br>
+   
+        User Name: <input type="text" name="UserName" value=<%= obj.UserName %> ><br>
+        
+        Session time out (Minutes): <input type="number" name="SessionTimeOut" value=<%= obj.SessionTimeOut %> min="0" max="1000" step="1"><br><br>
+        Permissions: <br>
+        <input type="checkbox" name="Permissions" id="Permissions" value="View Subscriptions" > View Subscriptions<br>
+        <input type="checkbox" name="Permissions" value="Create Subscriptions" onchange="check()"> Create Subscriptions<br>
+        <input type="checkbox" name="Permissions" value="Delete Subscriptions" onchange="check()"> Delete Subscriptions<br>
+        <input type="checkbox" name="Permissions" value="Update Subscriptions" onchange="check()"> Update Subscriptions<br>
+        <input type="checkbox" name="Permissions" value="View Movies" > View Movies<br>
+        <input type="checkbox" name="Permissions" value="Create Movies" onchange="check()"> Create Movies<br>
+        <input type="checkbox" name="Permissions" value="Delete Movies" onchange="check()"> Delete Movies<br>
+        <input type="checkbox" name="Permissions" value="Update Movies" onchange="check()"> Update Movies<br><br>
+        <input type="hidden" id="custId" name="id" value=<%= obj.id %>>
+
+         <input type="submit" value="Update">
+         <input type="submit" formaction="/Users" formmethod="get" value="Cancel">
+
+       </form> 
+   </body>
+</html>
